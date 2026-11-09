@@ -37,8 +37,12 @@ const REDUCED=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const cv=document.getElementById('c'),ctx=cv.getContext('2d');
 
 /* ---------- 화면 맞춤 ---------- */
-let RS=1;
-function fit(){const s=Math.min(innerWidth*0.98/W,(innerHeight-24)/H);cv.style.width=(W*s)+'px';cv.style.height=(H*s)+'px';RS=Math.max(1,Math.min(3,s*(window.devicePixelRatio||1)));cv.width=Math.round(W*RS);cv.height=Math.round(H*RS);}
+let RS=1,QUAL=1;
+function fit(){
+  const s=Math.min(innerWidth*0.98/W,(innerHeight-24)/H);cv.style.width=(W*s)+'px';cv.style.height=(H*s)+'px';
+  RS=Math.max(.55,Math.min(2,Math.max(.8,s*(window.devicePixelRatio||1)))*QUAL);
+  const w=Math.round(W*RS),h=Math.round(H*RS);if(cv.width!==w||cv.height!==h){cv.width=w;cv.height=h;}
+}
 addEventListener('resize',fit);fit();
 
 /* ---------- 이미지 ---------- */
@@ -1774,7 +1778,7 @@ function drawCharIcon(ch,x,y,s,bob=0,skin=0){
 }
 
 function render(){
-  ctx.setTransform(RS,0,0,RS,0,0);ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';
+  ctx.setTransform(RS,0,0,RS,0,0);ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality=QUAL<1?'medium':'high';
   ctx.save();ctx.fillStyle=PAPER;ctx.fillRect(0,0,W,H);
   if(shakeT>0){ctx.translate((Math.random()-.5)*shakeM,(Math.random()-.5)*shakeM);}
   for(const c of clouds)img(c.n,c.x,c.y,c.s*128,c.s*64);
@@ -2069,17 +2073,31 @@ function drawMatchEnd(){
 
 /* ---------- 루프 ---------- */
 let last=performance.now(),acc=0;
+let pfT=0,pfN=0,pfSlow=0;
 function frame(now){
-  const d=Math.min(.1,(now-last)/1000);last=now;
+  const raw=(now-last)/1000,d=Math.min(.1,raw);last=now;
   pollPads();
-  acc+=d;while(acc>=STEP){tick(STEP);acc-=STEP;}
-  render();requestAnimationFrame(frame);
+  acc+=d;let n=0;while(acc>=STEP&&n<5){tick(STEP);acc-=STEP;n++;}if(n>=5)acc=0;
+  render();
+  if(raw<.5&&!document.hidden){pfT+=raw;pfN++;if(pfT>2){const avg=pfT/pfN;
+    if(avg>1/50&&QUAL>.5){QUAL=Math.max(.5,QUAL*.85);fit();pfSlow=0;}
+    else if(avg<1/58&&QUAL<1){if(++pfSlow>=2){QUAL=Math.min(1,QUAL*1.12);fit();pfSlow=0;}}
+    pfT=0;pfN=0;}}
+  requestAnimationFrame(frame);
+}
+function prewarmSkins(){
+  const jobs=[];
+  for(const d of Object.values(EDEF))jobs.push([d.base,d.skin],['character_hand'+d.hand,d.skin]);
+  for(const B of Object.values(BOSSES))for(const d of B.list)jobs.push([d.base,d.skin],['character_hand'+d.hand,d.skin]);
+  for(const c of CHARS)if(c.baseSkin)jobs.push([c.body,c.baseSkin],['character_hand'+c.hand,c.baseSkin]);
+  const step=()=>{const j=jobs.shift();if(!j)return;try{skinImg(j[0],j[1]);bodyInfo(skinImg(j[0],j[1]));}catch(e){}setTimeout(step,30);};
+  setTimeout(step,500);
 }
 (async()=>{
   await loadImages();
   try{await Promise.race([document.fonts.load(`700 40px Gaegu`),new Promise(r=>setTimeout(r,1500))]);}catch(e){}
   clouds=[{n:'background_cloudA',x:80,y:90,s:1.2,v:10},{n:'background_cloudB',x:520,y:150,s:1,v:14},{n:'background_cloudA',x:900,y:60,s:.9,v:8},{n:'background_cloudB',x:1150,y:210,s:1.3,v:12}];
-  toTitle();cv.focus();
+  toTitle();cv.focus();prewarmSkins();
   requestAnimationFrame(frame);
 })();
 </script>
