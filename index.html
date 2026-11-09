@@ -237,7 +237,7 @@ const CHARS=[
 
 const SK1={dash:'앞으로 튀어나가며 2 대미지',blink:'앞으로 순간이동, 잠깐 무적',quake:'뛰어올라 내려찍어 주변을 띄움',leaf:'탄 반사, 공격 막기 (이단 점프)',bomb:'포물선으로 날아가 터지는 폭탄',hook:'상대를 끌어오거나 벽으로 날아감',wall:'눈앞에 상자 벽 2칸',bounce:'아주 높이 점프 (밟기 2 대미지)',sneak:'2.5초 거의 투명, 빨라짐',magnet:'아이템과 상대를 끌어옴',spin:'빙글 돌며 주변 2 대미지',roll:'1초 무적 구르기',bolt:'상대 자리에 늦게 떨어지는 벼락',wave:'주변 상대, 탄, 아이템을 밀어냄'};
 const SK2={dash:['어퍼컷','솟구치며 상대를 높이 띄움 (2)',4],blink:['잔상 폭탄','제자리에 1초 뒤 터지는 잔상 (2)',5],quake:['바위 던지기','무거운 바위를 포물선으로 (2)',4],leaf:['바람 칼날','멀리 날아가며 세게 밀침 (1)',3.5],bomb:['지뢰','밟으면 터지는 지뢰 설치 (2)',5],hook:['메치기','붙어 있는 상대를 뒤로 메침 (2)',4],wall:['상자 던지기','상자를 던져 크게 날림 (2)',4],bounce:['엉덩방아','공중에서 내려찍어 충격파 (2)',4],sneak:['표창 3연발','표창을 연달아 던짐',4.5],magnet:['반발','주변 탄을 모두 지우고 상대를 밀어냄',4.5],spin:['돌진 회전','앞으로 나아가며 회전 베기 (2)',4.5],roll:['튕겨 구르기','앞으로 튀어오르며 구름 (2)',4],bolt:['전기 구슬','맞으면 잠깐 못 움직임 (1)',4.5],wave:['부풀기','3.5초간 커지고 무거워짐, 닿으면 밀침',6]};
-const ULT={dash:['폭주','6초간 빨라지고 근접 공격 +1, 넉백 강화'],blink:['번개 연타','상대 뒤로 3번 순간이동하며 타격'],quake:['대지진','땅에 선 상대에게 지진 3번'],leaf:['회오리','상대를 띄우는 회오리를 보냄'],bomb:['폭탄비','하늘에서 폭탄 8개가 떨어짐'],hook:['끌어 메치기','잡히면 끌려와서 3 대미지'],wall:['상자 감옥','상대를 상자로 가두고 폭파'],bounce:['슈퍼 바운스','5초간 착지할 때마다 충격파'],sneak:['암살','상대 뒤로 숨고, 다음 공격 +2'],magnet:['블랙홀','3초 동안 끌어당기고 중심에서 최대 2번 맞힌 뒤 크게 터짐 (2)'],spin:['거대 회오리','2.5초간 크게 돌며 연속 타격'],roll:['거대 굴렁쇠','커져서 3.5초간 굴러다님 (3)'],bolt:['뇌우','상대 위로 벼락 6번'],wave:['초거대 충격파','넓은 충격파 3연발']};
+const ULT={dash:['폭주','6초간 빨라지고 근접 공격 +1, 넉백 강화'],blink:['번개 연타','상대 뒤로 3번 순간이동하며 타격'],quake:['대지진','땅에 선 상대에게 지진 3번'],leaf:['회오리','상대를 띄우는 회오리를 보냄'],bomb:['폭탄비','하늘에서 폭탄 8개가 떨어짐'],hook:['끌어 메치기','잡히면 끌려와서 3 대미지'],wall:['상자 감옥','상대를 상자로 가두고 폭파'],bounce:['슈퍼 바운스','5초간 착지할 때마다 충격파'],sneak:['암살','상대 뒤로 숨고, 다음 공격 +2'],magnet:['블랙홀','3초간 끌어당기다가 크게 터짐 (2~4)'],spin:['거대 회오리','2.5초간 크게 돌며 연속 타격'],roll:['거대 굴렁쇠','커져서 3.5초간 굴러다님 (3)'],bolt:['뇌우','상대 위로 벼락 6번'],wave:['초거대 충격파','넓은 충격파 3연발']};
 CHARS.forEach(c=>{c.d1=SK1[c.id];[c.sp2,c.d2,c.cd2]=SK2[c.id];[c.ult,c.du]=ULT[c.id];});
 
 CHARS.push(
@@ -251,9 +251,9 @@ CHARS.push(
   {id:'zoom',name:'슝슝이',body:'n_zoom',hand:'Green',color:'#22b56e',spd:1.36,jump:1.07,weight:.86,cd:4,sp:'질주'},
   {id:'rock',name:'돌돌이',body:'n_rock',hand:'Red',baseSkin:12,color:'#7d838c',spd:.88,jump:.95,weight:1.7,cd:5,sp:'단단해지기'}
 );
-Object.assign(SK1,{spike:'가시 3개를 부채꼴로 발사',star:'높이 솟구치며 위를 쳐올림 (2)',heart:'하트 1칸 회복 (13초마다)',hex:'1.6초 방어막, 탄 반사',cloud:'2.5초 두둥실 떠다니기 (이단 점프)',drop:'물살을 타고 미끄러지며 들이받기 (2)',clock:'가까운 상대의 시간을 3초 동안 느리게',zoom:'3초 동안 아주 빨라지고, 부딪힌 상대를 날림 (1)',rock:'2.8초 동안 돌처럼 단단해짐. 넉백 거의 없음, 받는 대미지 -1'});
+Object.assign(SK1,{spike:'가시 3개를 부채꼴로 발사',star:'높이 솟구치며 위를 쳐올림 (2)',heart:'하트 1칸 회복 (13초마다)',hex:'1.6초 방어막, 탄 반사',cloud:'2.5초 두둥실 떠다니기 (이단 점프)',drop:'물살을 타고 미끄러지며 들이받기 (2)',clock:'가까운 상대의 시간을 3초 동안 느리게',zoom:'3초간 빨라지고 부딪힌 상대를 날림 (1)',rock:'2.8초간 단단해짐. 넉백 거의 없음, 대미지 -1'});
 Object.assign(SK2,{spike:['가시 덫','밟으면 터지는 덫 설치 (2)',5],star:['섬광','주변 상대를 1초 동안 멈춤',6],heart:['하트 화살','맞으면 잠깐 못 움직임 (1)',6.5],hex:['육각 벽','눈앞에 상자 벽을 세움',5],cloud:['비구름','상대 위로 작은 벼락 2번 (1)',5],drop:['물대포','멀리 밀어내는 물줄기 (1)',3.5],clock:['되감기','2초 전에 있던 자리로 돌아감',6],zoom:['슝 돌파','앞으로 순식간에 지나가며 모두 2 대미지',3.5],rock:['바위 굴리기','큰 바위를 굴려 보냄. 벽에 한 번 튕김 (2)',4]});
-Object.assign(ULT,{spike:['별똥별','하늘에서 가시 10개가 쏟아짐'],star:['유성우','터지는 별 6개가 떨어짐'],heart:['사랑의 힘','하트 1칸 회복, 방패, 1초 보호막'],hex:['요새','3.5초 방어막 + 5초간 공격 강화'],cloud:['폭풍','양쪽으로 회오리 2개'],drop:['해일','큰 파도가 상대를 쓸어감'],clock:['시간 정지','상대를 1.8초 동안 완전히 멈춤'],zoom:['음속 돌파','4초 동안 초고속, 이단 점프, 닿을 때마다 2 대미지'],rock:['대지 분쇄','뛰어올라 내려찍어 가까우면 3, 멀면 2 대미지. 바위가 쏟아짐']});
+Object.assign(ULT,{spike:['별똥별','하늘에서 가시 10개가 쏟아짐'],star:['유성우','터지는 별 6개가 떨어짐'],heart:['사랑의 힘','하트 1칸 회복, 방패, 1초 보호막'],hex:['요새','3.5초 방어막 + 5초간 공격 강화'],cloud:['폭풍','양쪽으로 회오리 2개'],drop:['해일','큰 파도가 상대를 쓸어감'],clock:['시간 정지','상대를 1.8초 동안 완전히 멈춤'],zoom:['음속 돌파','4초간 초고속, 닿을 때마다 2 대미지'],rock:['대지 분쇄','내려찍기: 가까우면 3, 멀면 2. 바위가 쏟아짐']});
 CHARS.forEach(c=>{c.d1=SK1[c.id];[c.sp2,c.d2,c.cd2]=SK2[c.id];[c.ult,c.du]=ULT[c.id];});
 const SKINS=[null,['파랑','#3b86e8'],['남색','#4e5fb0'],['하늘','#22c3d6'],['청록','#1fa898'],['민트','#6fd6b0'],['연두','#9bcb3a'],['주황','#f39a2e'],['살구','#f2a98a'],['분홍','#ee6aae'],['자주','#b85cc8'],['갈색','#b07a55'],['회색','#8e949e']];
 function hexRgb(h){return[parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];}
@@ -1736,8 +1736,9 @@ function world(rdt,inp){
 }
 
 /* ---------- 그리기 ---------- */
-function text(s,x,y,size,color,align='center',outline=true,weight=700){
+function text(s,x,y,size,color,align='center',outline=true,weight=700,maxW=0){
   ctx.font=`${weight} ${size}px ${FONT}`;ctx.textAlign=align;ctx.textBaseline='middle';
+  if(maxW>0){const tw=ctx.measureText(s).width;if(tw>maxW){size=Math.max(9,size*maxW/tw);ctx.font=`${weight} ${size}px ${FONT}`;}}
   if(outline){ctx.lineJoin='round';ctx.lineWidth=Math.max(5,size*.18);ctx.strokeStyle=PAPER;ctx.strokeText(s,x,y);}
   ctx.fillStyle=color;ctx.fillText(s,x,y);
 }
@@ -1916,7 +1917,7 @@ function drawHud(){
     ctx.globalAlpha=1;
     // 특수기 게이지
     const bw=172,bx=left?x0:x0-bw;
-    const bar=(by,h,fr,col,label)=>{fr=Math.max(0,Math.min(1,fr));ctx.fillStyle=PAPER;ctx.fillRect(bx,by,bw,h);ctx.fillStyle=fr>=1?col:'#bdbdb6';ctx.fillRect(left?bx:bx+bw-bw*fr,by,bw*fr,h);ctx.lineWidth=2.5;ctx.strokeStyle=INK;ctx.strokeRect(bx,by,bw,h);text(label,left?bx+bw+8:bx-8,by+h/2,17,fr>=1?INK:GREY,left?'left':'right',true,fr>=1?700:400);};
+    const bar=(by,h,fr,col,label)=>{fr=Math.max(0,Math.min(1,fr));ctx.fillStyle=PAPER;ctx.fillRect(bx,by,bw,h);ctx.fillStyle=fr>=1?col:'#bdbdb6';ctx.fillRect(left?bx:bx+bw-bw*fr,by,bw*fr,h);ctx.lineWidth=2.5;ctx.strokeStyle=INK;ctx.strokeRect(bx,by,bw,h);text(label,left?bx+bw+8:bx-8,by+h/2,17,fr>=1?INK:GREY,left?'left':'right',true,fr>=1?700:400,150);};
     bar(100,10,1-p.spCd/p.ch.cd,p.color,p.ch.sp);
     bar(118,10,1-p.sp2Cd/p.ch.cd2,p.color,p.ch.sp2);
     const uf=p.ult/100;bar(136,12,uf,uf>=1&&Math.floor(time*6)%2?'#ffd23f':p.color,'궁극기');
@@ -2015,10 +2016,10 @@ function drawSelect(){
     const [x,y0]=pos(k),hov=pick.filter(s=>s.cur===k),locked=pick.some(s=>s.lock&&s.cur===k);
     sketchRect(x,y0,cw,ch,locked?'#ffffff':'#f7f7f4',hov.length?3.5:2,k+3);
     drawCharIcon(c,x+cw/2,y0+42,.68,hov.length?Math.sin(time*6+k)*-4:0);
-    text(c.name,x+cw/2,y0+84,21,c.color);
-    text(c.sp,x+cw/2,y0+102,14,INK,'center',true,400);
+    text(c.name,x+cw/2,y0+84,21,c.color,'center',true,700,cw-10);
+    text(c.sp,x+cw/2,y0+102,14,INK,'center',true,400,cw-10);
   });
-  {const k=CHARS.length,[x,y0]=pos(k),hov=pick.some(s=>s.cur===k);sketchRect(x,y0,cw,ch,'#f7f7f4',hov?3.5:2,77);boilText('?',x+cw/2,y0+42+(hov?Math.sin(time*6)*-4:0),56,INK);text('랜덤',x+cw/2,y0+84,21,INK);text('무작위 선택',x+cw/2,y0+102,14,INK,'center',true,400);}
+  {const k=CHARS.length,[x,y0]=pos(k),hov=pick.some(s=>s.cur===k);sketchRect(x,y0,cw,ch,'#f7f7f4',hov?3.5:2,77);boilText('?',x+cw/2,y0+42+(hov?Math.sin(time*6)*-4:0),56,INK);text('랜덤',x+cw/2,y0+84,21,INK);text('무작위 선택',x+cw/2,y0+102,14,INK,'center',true,400,cw-10);}
   [...CHARS,null].forEach((c,k)=>{
     const [x,y0]=pos(k);
     for(const [i,s] of pick.entries())if(s.cur===k){
@@ -2043,14 +2044,15 @@ function drawSelect(){
     const keys=[K(i,'sp'),K(i,'sp2'),K(i,'ult')];
     [[c.sp,c.d1,'특수기'],[c.sp2,c.d2,'두 번째'],[c.ult,c.du,'궁극기']].forEach(([n,d,l],k)=>{
       const ly=y+78+k*62;
-      text(n,tx,ly,26,INK,'left',false,700);
+      ctx.font=`400 19px ${FONT}`;const lw=ctx.measureText(l+'  '+keys[k]).width;
+      text(n,tx,ly,26,INK,'left',false,700,x+w-18-lw-14-tx);
       text(l+'  '+keys[k],x+w-18,ly,19,k===2?cc:GREY,'right',false,k===2?700:400);
-      text(d,tx,ly+26,21,'#444440','left',false,400);
+      text(d,tx,ly+26,21,'#444440','left',false,400,x+w-14-tx);
     });
     const skinName=s.skin?SKINS[s.skin][0]:'기본';
-    text('색: '+skinName+(i===1&&cpu.on?'':'     '+K(i,'sp2')+' / '+K(i,'ult')+' 색 바꾸기'),x+20,y+h-64,22,INK,'left',false,400);
+    text('색: '+skinName+(i===1&&cpu.on?'':'     '+K(i,'sp2')+' / '+K(i,'ult')+' 색 바꾸기'),x+20,y+h-64,22,INK,'left',false,400,w-40);
     const msg=s.lock?'확정! '+(pick[1-i].lock?'곧 시작해요':'상대를 기다리는 중'):(K(i,'left')+' '+K(i,'right')+' '+K(i,'up')+' '+K(i,'down')+' 고르기   '+K(i,'atk')+' 확정');
-    text(msg,x+20,y+h-26,24,s.lock?col:INK,'left',true,s.lock?700:400);
+    text(msg,x+20,y+h-26,24,s.lock?col:INK,'left',true,s.lock?700:400,w-150);
     if(s.lock&&!(i===1&&cpu.on))text(K(i,'sp')+' 취소',x+w-18,y+h-26,22,GREY,'right',false,400);
   }
 }
