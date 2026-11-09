@@ -1079,8 +1079,7 @@ class Player{
   breakWeapon(){fx('puff',this.cx+this.face*30,this.cy);sfx('break',.6);popText('부서짐',this.cx,this.y-26,INK,26);this.weapon=null;this.uses=0;this.breakAfter=false;}
   draw(){
     ctx.save();
-    if(this.freezeT>0&&!this.dead)ctx.filter='grayscale(1) brightness(1.08)';
-    else if(this.armorT>0&&!this.dead)ctx.filter='sepia(.7) brightness(.82) contrast(1.15)';
+    const tint=this.dead?null:this.freezeT>0?'gray':this.armorT>0?'stone':null;
     if(!this.dead&&this.inv>0&&this.barrierT<=0&&this.rollT<=0&&Math.floor(this.inv*18)%2===0)ctx.globalAlpha=.45;
     if(!this.dead&&this.invisT>0)ctx.globalAlpha=this.invisT<.4&&Math.floor(this.invisT*20)%2?.5:.07;
     const bob=this.ground&&Math.abs(this.vx)>40?Math.sin(this.walkT*16)*2.5:0;
@@ -1088,15 +1087,15 @@ class Player{
     else ctx.translate(this.cx,this.y+this.h);
     {const big=(this.bigT>0?1.45:1)*(this.rollBig&&this.rollT>0?1.6:1)*(this.spinBig&&this.spinT>0?1.25:1);if(big!==1&&!this.dead)ctx.scale(big,big);}
     if(!this.dead&&(this.rollT>0||this.spinT>0)){ctx.translate(0,-28);ctx.rotate(this.rollT>0?this.rot:(.5-this.spinT)*30*this.face);ctx.translate(0,28);}
-    const f=this.face,breath=Math.sin(time*3+this.i)*1.2,hand=this.handName;
+    const f=this.face,breath=Math.sin(time*3+this.i)*1.2,hand=tint?tintImg(this.handName,tint):this.handName,bodyN=tint?tintImg(this.bodyName,tint):this.bodyName;
     const B=bodyInfo(this.bodyName)||{half:21,cx:32},HO=B.cx-32+(this.look||0)*.35,HW=B.half;
     const bx=HO-f*(HW+1),by=-24+breath;
     img(hand,bx-32,by-32);
     if(this.shield){ctx.save();ctx.translate(bx-f*4,by);img('item_shieldRound',-24,-24,48,48);ctx.restore();}
     ctx.save();const sy=this.sq,sx=1+(1-this.sq)*.8;ctx.translate(0,bob*.3);ctx.scale(sx,sy);
     if(this.dashT>0){ctx.rotate(f*.18);}
-    drawTurned(this.bodyName,-32,-63,this.look||0);
-    if(!this.dead&&(this.slowT>0||this.freezeT>0)){ctx.save();ctx.filter='none';drawClockIcon(0,-82,1.1,this.freezeT>0);ctx.restore();}
+    drawTurned(bodyN,-32,-63,this.look||0);
+    if(!this.dead&&(this.slowT>0||this.freezeT>0))drawClockIcon(0,-82,1.1,this.freezeT>0);
     this.drawHeadgear();
     ctx.restore();
     let hx=HO+f*(HW+(this.weapon?9:4)),hy=(this.weapon?-14:-26)+breath+bob*.4;
@@ -1161,6 +1160,18 @@ function bodyInfo(n){
   for(let x=0;x<64;x++)if(d[(ry*64+x)*4+3]>40){l=Math.min(l,x);r=Math.max(r,x);}
   let ml=64,mr=0;for(let x=0;x<64;x++)if(d[(38*64+x)*4+3]>40){ml=Math.min(ml,x);mr=Math.max(mr,x);}
   return BODY[n]={top,w:r-l+1,cx:(l+r)/2,half:(mr-ml+1)/2,mcx:(ml+mr)/2};
+}
+function tintImg(name,kind){
+  const key=name+'#'+kind;if(IMG[key])return key;
+  const im=IMG[name];if(!im||!im.naturalWidth)return name;
+  const c=document.createElement('canvas');c.width=im.naturalWidth;c.height=im.naturalHeight;const g=c.getContext('2d');g.drawImage(im,0,0);
+  const id=g.getImageData(0,0,c.width,c.height),d=id.data;
+  for(let i=0;i<d.length;i+=4){
+    if(!d[i+3])continue;const l=.3*d[i]+.59*d[i+1]+.11*d[i+2];
+    if(kind==='gray'){const v=Math.min(255,l*1.08);d[i]=d[i+1]=d[i+2]=v;}
+    else{const v=l*.72+8;d[i]=Math.min(255,v*1.03);d[i+1]=Math.min(255,v);d[i+2]=Math.min(255,v*.95);}
+  }
+  g.putImageData(id,0,0);c.lw=im.lw;c.lh=im.lh;c.complete=true;c.naturalWidth=c.width;c.naturalHeight=c.height;IMG[key]=c;return key;
 }
 function drawTurned(name,x,y,look){
   const im=IMG[name];if(!im||!im.lw)return;
@@ -2090,7 +2101,8 @@ function prewarmSkins(){
   for(const d of Object.values(EDEF))jobs.push([d.base,d.skin],['character_hand'+d.hand,d.skin]);
   for(const B of Object.values(BOSSES))for(const d of B.list)jobs.push([d.base,d.skin],['character_hand'+d.hand,d.skin]);
   for(const c of CHARS)if(c.baseSkin)jobs.push([c.body,c.baseSkin],['character_hand'+c.hand,c.baseSkin]);
-  const step=()=>{const j=jobs.shift();if(!j)return;try{skinImg(j[0],j[1]);bodyInfo(skinImg(j[0],j[1]));}catch(e){}setTimeout(step,30);};
+  for(const c of CHARS)if(c.id==='rock')jobs.push(['__tint',skinImg(c.body,c.baseSkin||0)],['__tint',skinImg('character_hand'+c.hand,c.baseSkin||0)]);
+  const step=()=>{const j=jobs.shift();if(!j)return;try{if(j[0]==='__tint')tintImg(j[1],'stone');else{skinImg(j[0],j[1]);bodyInfo(skinImg(j[0],j[1]));}}catch(e){}setTimeout(step,30);};
   setTimeout(step,500);
 }
 (async()=>{
