@@ -253,9 +253,9 @@ CHARS.push(
   {id:'drop',name:'방울이',body:'n_drop',hand:'Purple',color:'#7f68f0',spd:1.08,jump:1,weight:.95,cd:3.5,sp:'물살 미끄럼'},
   {id:'clock',name:'째깍이',body:'n_clock',hand:'Yellow',color:'#e09a00',spd:1,jump:1,weight:.95,cd:5,sp:'느려져라'},
   {id:'zoom',name:'슝슝이',body:'n_zoom',hand:'Green',color:'#22b56e',spd:1.36,jump:1.07,weight:.86,cd:4,sp:'질주'},
-  {id:'rock',name:'돌돌이',body:'n_rock',hand:'Red',baseSkin:12,color:'#7d838c',spd:.88,jump:.95,weight:1.7,cd:5,sp:'단단해지기'}
+  {id:'rock',name:'돌멩이',body:'n_rock',hand:'Red',baseSkin:12,color:'#7d838c',spd:.88,jump:.95,weight:1.7,cd:5,sp:'단단해지기'}
 );
-Object.assign(SK1,{spike:'가시 3개를 부채꼴로 발사',star:'높이 솟구치며 위를 쳐올림 (2)',heart:'하트 1칸 회복 (13초마다)',hex:'1.6초 방어막, 탄 반사',cloud:'2.5초 두둥실 떠다니기 (이단 점프)',drop:'물살을 타고 미끄러지며 들이받기 (2)',clock:'가까운 상대의 시간을 3초 동안 느리게',zoom:'3초간 빨라지고 부딪힌 상대를 날림 (1)',rock:'2.8초간 단단해짐. 넉백 거의 없음, 대미지 -1'});
+Object.assign(SK1,{spike:'가시 3개를 부채꼴로 발사',star:'높이 솟구치며 위를 쳐올림 (2)',heart:'하트 1칸 회복 (13초마다)',hex:'1.6초 방어막, 탄 반사',cloud:'2.5초 두둥실 떠다니기 (이단 점프)',drop:'물살을 타고 미끄러지며 들이받기 (2)',clock:'가까운 상대의 시간을 3초 동안 느리게',zoom:'3초간 빨라지고 부딪힌 상대를 날림 (1)',rock:'살짝 떠오르며 2.8초간 단단해짐. 넉백 거의 없음, 대미지 -1'});
 Object.assign(SK2,{spike:['가시 덫','밟으면 터지는 덫 설치 (2)',5],star:['섬광','주변 상대를 1초 동안 멈춤',6],heart:['하트 화살','맞으면 잠깐 못 움직임 (1)',6.5],hex:['육각 벽','눈앞에 상자 벽을 세움',5],cloud:['비구름','상대 위로 작은 벼락 2번 (1)',5],drop:['물대포','멀리 밀어내는 물줄기 (1)',3.5],clock:['되감기','2초 전에 있던 자리로 돌아감',6],zoom:['슝 돌파','앞으로 순식간에 지나가며 모두 2 대미지',3.5],rock:['바위 굴리기','큰 바위를 굴려 보냄. 벽에 한 번 튕김 (2)',4]});
 Object.assign(ULT,{spike:['별똥별','하늘에서 가시 10개가 쏟아짐'],star:['유성우','터지는 별 6개가 떨어짐'],heart:['사랑의 힘','하트 1칸 회복, 방패, 1초 보호막'],hex:['요새','3.5초 방어막 + 5초간 공격 강화'],cloud:['폭풍','양쪽으로 회오리 2개'],drop:['해일','큰 파도가 상대를 쓸어감'],clock:['시간 정지','상대를 1.8초 동안 완전히 멈춤'],zoom:['음속 돌파','4초간 초고속, 닿을 때마다 2 대미지'],rock:['대지 분쇄','내려찍기: 가까우면 3, 멀면 2. 바위가 쏟아짐']});
 CHARS.forEach(c=>{c.d1=SK1[c.id];[c.sp2,c.d2,c.cd2]=SK2[c.id];[c.ult,c.du]=ULT[c.id];});
@@ -762,6 +762,7 @@ function modeWorld(dt){
 function later(t,fn){timers.push({t,fn});}
 
 /* ---------- 플레이어 ---------- */
+const HEADFIX={"n_heart": {"w": 34, "dy": -7, "hs": 7}, "n_hexagon": {"w": 34, "hs": 5}, "n_rock": {"w": 34, "hs": 4}, "n_cloud": {"w": 28, "hs": 4}, "n_clock": {"w": 34, "dy": 5, "hs": 6}, "n_triangle": {"w": 26, "dy": 9, "hs": 12}, "n_star": {"w": 24, "dy": 5, "hs": 12}, "n_drop": {"w": 24, "dy": 11, "hs": 12}, "n_zoom": {"w": 28, "dx": 5, "hs": 5}};
 class Player{
   constructor(i,ch){this.i=i;this.setChar(ch);}
   setChar(ch){this.ch=ch;this.name=ch.name;this.setSkin(this.skin||0);}
@@ -953,7 +954,7 @@ class Player{
     if(id==='cloud'){this.floatT=2.6;this.vy=Math.min(this.vy,-300);this.ground=false;this.jumping=false;sfx('djump',.5,1.5);}
     if(id==='drop'){this.rollT=.6;this.slide=true;this.rollHit=new Set();this.rollBig=false;sfx('splash',.6,1.4);}
     if(id==='zoom'){this.sprintT=3;this.sonic=false;this.sprintHit=new Map();sfx('dash',.7,1.3);fx('dust',this.cx,this.y+this.h);}
-    if(id==='rock'){this.armorT=2.8;this.sq=.75;sfx('build',.8);for(let k=0;k<8;k++)parts.push({k:'dot',c:'#b07a55',x:this.cx+(Math.random()-.5)*44,y:this.cy+(Math.random()-.5)*50,vx:(Math.random()-.5)*160,vy:-100-Math.random()*120,g:900,r:5,life:.5,max:.5});}
+    if(id==='rock'){this.armorT=2.8;this.sq=.75;this.vy=Math.min(this.vy,-440);this.ground=false;this.jumping=false;sfx('build',.8);for(let k=0;k<8;k++)parts.push({k:'dot',c:'#b07a55',x:this.cx+(Math.random()-.5)*44,y:this.cy+(Math.random()-.5)*50,vx:(Math.random()-.5)*160,vy:-100-Math.random()*120,g:900,r:5,life:.5,max:.5});}
     if(id==='clock'){
       let tg=null,bd=520;for(const g of foesOf(this)){const d=Math.hypot(g.cx-this.cx,g.cy-this.cy);if(d<bd){bd=d;tg=g;}}
       if(!tg){this.spCd=.3;sfx('nope',.4);return;}
@@ -1124,12 +1125,12 @@ class Player{
   drawHeadgear(){
     const g=(mode==='crown'&&crown&&crown.holder===this)?'crown':this.helmet?'helmet':this.speedT>0?'tophat':this.jumpT>0?'hat':null;if(!g)return;
     const b=bodyInfo(this.bodyName);if(!b)return;
-    const look=this.look||0,top=-63+b.top,hx=b.cx-32+look*.7;
-    if(g==='crown'){drawCrown(hx,top-5,(b.w+14)/38);return;}
+    const hf=HEADFIX[this.ch.body]||{},bw=hf.w??b.w,look=this.look||0,top=-63+b.top+(hf.dy||0),hx=b.cx-32+(hf.dx||0)+look*.7;
+    if(g==='crown'){drawCrown(hx,top-5,(bw+14)/38);return;}
     const [n,l,r,bot,wf,sink]={helmet:['item_helmet',8,56,54,1,15],tophat:['item_hatTop',7,57,49,.8,5],hat:['item_hat',0,64,46,1.12,8]}[g];
-    const k=(b.w*wf+6)/(r-l);
-    ctx.save();ctx.translate(hx,top+sink);ctx.rotate(look*.006);
-    if(g==='helmet'){const im=IMG.item_helmet,kw=(b.w+8)/48;if(im)ctx.drawImage(im,16,18,96,60,-24*kw,-26*kw,48*kw,30*kw);}
+    const k=(bw*wf+6)/(r-l);
+    ctx.save();ctx.translate(hx,top+(g==='helmet'&&hf.hs!==undefined?hf.hs:sink));ctx.rotate(look*.006);
+    if(g==='helmet'){const im=IMG.item_helmet,kw=(bw+8)/48;if(im)ctx.drawImage(im,16,18,96,60,-24*kw,-26*kw,48*kw,30*kw);}
     else img(n,-(l+r)/2*k,-bot*k,64*k,64*k);
     ctx.restore();
   }
@@ -1264,15 +1265,27 @@ function navStep(p,tx,ty,w){
 function cpuDecide(p,L,ai){
   const w={},foe=nearestFoe(p);let tx=foe.cx,ty=foe.cy,fight=!foe.dead;
   const dist=(x,y)=>Math.hypot(x-p.cx,y-p.cy),R=Math.random;
+  let objD=0;
   if(!p.enemy){
+    const fdist=dist(foe.cx,foe.cy);
     if(mode==='crown'&&crown){
-      if(!crown.holder){tx=crown.x;ty=crown.y;fight=dist(foe.cx,foe.cy)<100;}
-      else if(crown.holder===p){let bx=p.cx,bd=-1;for(let k=0;k<12;k++){const x=80+R()*(W-160),g=navAt(x,0);if(!g)continue;const d=Math.abs(x-foe.cx);if(d>bd){bd=d;bx=x;}}tx=bx;ty=p.cy;fight=dist(foe.cx,foe.cy)<85;}
-    }else if(mode==='coin'){let best=null,bd=1e9;for(const c of coins){const d=dist(c.x,c.y)+(navAt(c.x,c.y)?0:500);if(d<bd){bd=d;best=c;}}if(best&&(foe.dead||bd<dist(foe.cx,foe.cy)*1.5||dist(foe.cx,foe.cy)>140)){tx=best.x;ty=best.y;fight=dist(foe.cx,foe.cy)<100;}}
-    else if(mode==='soccer'&&ball){const gd=p.i===1?-1:1;tx=ball.x-gd*40;ty=ball.y;fight=dist(foe.cx,foe.cy)<70&&R()<.3;}
-    const fd=dist(foe.cx,foe.cy);
-    if(!p.weapon&&mode!=='soccer'&&fd>150){let best=null,bd=420;for(const it of items)if(WEAP[it.type]&&it.ground){const d=dist(it.x,it.y);if(d<bd){bd=d;best=it;}}if(best){tx=best.x;ty=best.y;fight=fd<110;}}
-    if(p.hp<=3&&fd>120)for(const it of items)if((it.type==='heart'||it.type==='helmet'||it.type==='shield')&&dist(it.x,it.y)<500){tx=it.x;ty=it.y;fight=fd<100;break;}
+      if(!crown.holder){tx=crown.x;ty=crown.y;objD=dist(tx,ty);fight=fdist<58;}
+      else if(crown.holder===p){
+        if(!ai.flee||time-ai.fleeT>2.5||Math.abs(ai.flee-foe.cx)<220){let bx=p.cx,bd=-1;for(let k=0;k<16;k++){const x=80+R()*(W-160),g=navAt(x,0);if(!g)continue;const d=Math.abs(x-foe.cx);if(d>bd){bd=d;bx=x;}}ai.flee=bx;ai.fleeT=time;}
+        tx=ai.flee;ty=p.cy;objD=999;fight=fdist<70;
+      }else{tx=foe.cx;ty=foe.cy;fight=true;ai.aggro=true;}
+    }else if(mode==='coin'){
+      let best=null,bd=1e9;for(const c of coins){const d=dist(c.x,c.y)*(c.ground?1:1.3)+(navAt(c.x,c.y)?0:600);if(d<bd){bd=d;best=c;}}
+      if(best&&!(fdist<90&&score[1-p.i]>=3)){tx=best.x;ty=best.y;objD=bd;fight=fdist<70;}else fight=true;
+    }else if(mode==='soccer'&&ball){
+      const gd=p.i===1?-1:1,behind=Math.sign(p.cx-ball.x)===-gd||Math.abs(p.cx-ball.x)<10;
+      if(behind){tx=ball.x-gd*28;ty=ball.y;}else{tx=ball.x-gd*70;ty=ball.y-(Math.abs(p.cx-ball.x)<60?90:0);}
+      objD=dist(ball.x,ball.y);fight=fdist<60&&R()<.25;
+    }
+    const lowHp=p.hp<=(mode==='battle'?3:2);
+    const objMode=mode==='crown'||mode==='coin'||mode==='soccer';
+    if(!p.weapon&&mode!=='soccer'&&fdist>150&&!(crown&&crown.holder===p)){let best=null,bd=objMode?Math.min(260,objD*.6):420;for(const it of items)if(WEAP[it.type]&&it.ground){const d=dist(it.x,it.y);if(d<bd){bd=d;best=it;}}if(best){tx=best.x;ty=best.y;fight=fdist<90;}}
+    if(lowHp&&fdist>120)for(const it of items)if((it.type==='heart'||it.type==='helmet'||it.type==='shield')&&dist(it.x,it.y)<(objMode?300:500)){tx=it.x;ty=it.y;fight=fdist<90;break;}
   }
   if(foe.dead&&!(mode==='crown'||mode==='coin'||mode==='soccer')){tx=W/2;ty=p.cy;fight=false;}
   const fdx=foe.cx-p.cx,fadx=Math.abs(fdx),fady=Math.abs(foe.cy-p.cy),fsign=Math.sign(fdx)||p.face;
@@ -1282,6 +1295,7 @@ function cpuDecide(p,L,ai){
   if(p.ground){move=navStep(p,tx,ty,w);if(w._navX!==undefined){ai.navX=w._navX;ai.navT=time;ai.navTopY=w._navTopY;ai.navStartX=w._navStartX;}else ai.navX=undefined;}
   else{
     if(p.jumping&&p.vy<-150)w.up=true;
+    if(!p.enemy&&p.ch.id==='rock'&&p.spCd<=0&&ai.navX!==undefined&&time-ai.navT<1.2&&Math.abs(p.vy)<160)w.sp=true;
     if(ai.navX!==undefined&&time-ai.navT<1.4){const goX=(ai.navTopY!==undefined&&p.y+p.h>ai.navTopY-2)?ai.navStartX:ai.navX,dx=goX-p.cx;move=Math.abs(dx)>6?Math.sign(dx):0;}
   }
   if(move===null){const dx=tx-p.cx;move=Math.abs(dx)>12?Math.sign(dx):0;
@@ -1335,7 +1349,9 @@ function cpuDecide(p,L,ai){
       if(p.ult>=100&&R()<L.skill*.9&&(U[id]?U[id]():d<380))w.ult=true;
       else if(p.spCd<=0&&R()<L.skill&&S1[id]&&S1[id]())w.sp=true;
       else if(p.sp2Cd<=0&&R()<L.skill*.85&&S2[id]&&S2[id]())w.sp2=true;
-      const turnAway=(id==='blink'&&p.hp<=2&&w.sp);
+      let flee=false;
+      if(mode==='crown'&&crown&&crown.holder===p&&d<200&&p.spCd<=0&&['blink','zoom','sneak','dash','roll','drop','cloud','bounce','star'].includes(id)&&R()<L.skill){w.sp=true;w.sp2=false;w.ult=false;flee=true;}
+      const turnAway=(id==='blink'&&p.hp<=2&&w.sp)||flee;
       if((w.sp||w.sp2||w.ult)&&!turnAway&&fsign!==p.face&&fadx>10){w.left=fsign<0;w.right=fsign>0;}
       if(turnAway&&fsign===p.face){w.left=fsign>0;w.right=fsign<0;}
     }
@@ -1565,9 +1581,10 @@ function toTitle(){
   players=[new Player(0,CHARS[pick[0].cur]||CHARS[0]),new Player(1,CHARS[pick[1].cur]||CHARS[1])];players.forEach((p,i)=>p.setSkin(pick[i].skin));enemies=[];
   players[0].reset(level.spawn[0],1);players[1].reset(level.spawn[1],-1);
 }
-function toSelect(){state='select';pick[0].lock=false;pick[1].lock=false;selReadyT=0;sfx('open',.6);if(cpu.on){let c;do{c=Math.random()*CHARS.length|0;}while(c===pick[0].cur);pick[1].cur=c;pick[1].skin=0;pick[1].lock=true;}}
+function toSelect(){state='select';pick[0].lock=false;pick[1].lock=false;selReadyT=0;sfx('open',.6);if(cpu.on){const c=Math.random()*CHARS.length|0;pick[1].cur=c;pick[1].skin=0;pick[1].lock=true;}}
 function startMatch(){
   players=[new Player(0,CHARS[pick[0].cur]),new Player(1,CHARS[pick[1].cur])];players.forEach((p,i)=>p.setSkin(pick[i].skin));
+  if(pick[0].cur===pick[1].cur&&pick[0].skin===pick[1].skin){const ns=pick[1].skin%(SKINS.length-1)+1;players[1].setSkin(ns);toast('같은 캐릭터라 2P 색을 '+SKINS[ns][0]+'(으)로 바꿨어요');}
   wins=[0,0];round=0;score=[0,0];matchWinner=-1;startRound();sfx('go',.7);
 }
 function startRound(){
@@ -1625,8 +1642,8 @@ function tick(dt){
         if(inp[i].sp2P){s.skin=(s.skin+1)%SKINS.length;sfx('tick',.4);}
         if(inp[i].ultP){s.skin=(s.skin+SKINS.length-1)%SKINS.length;sfx('tick',.4);}
         if(inp[i].spP){state='mode';sfx('close',.5);}
-        if(inp[i].atkP&&s.cur===CHARS.length){let c,n=0;do{c=Math.random()*CHARS.length|0;n++;}while(o.lock&&o.cur===c&&o.skin===s.skin&&n<50);s.cur=c;s.lock=true;sfx('ready',.7);toast('랜덤: '+CHARS[c].name);}
-        else if(inp[i].atkP){if(o.lock&&o.cur===s.cur&&o.skin===s.skin){sfx('nope',.5);toast('이미 고른 캐릭터예요');}else{s.lock=true;sfx('ready',.7);}}
+        if(inp[i].atkP&&s.cur===CHARS.length){const c=Math.random()*CHARS.length|0;s.cur=c;s.lock=true;sfx('ready',.7);toast('랜덤: '+CHARS[c].name);}
+        else if(inp[i].atkP){s.lock=true;sfx('ready',.7);}
       }else if(inp[i].spP){s.lock=false;sfx('close',.5);}
     }
     if(pick[0].lock&&pick[1].lock){selReadyT+=dt;if(selReadyT>.7)startMatch();}else selReadyT=0;
