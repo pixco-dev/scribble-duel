@@ -248,7 +248,7 @@ const CHARS=[
 ];
 
 const SK1={dash:'앞으로 튀어나가며 2 대미지',blink:'앞으로 순간이동, 잠깐 무적',quake:'뛰어올라 내려찍어 주변을 띄움',leaf:'1.6초 탄 반사, 공격 막기 (이단 점프)',bomb:'포물선으로 날아가 터지는 폭탄',hook:'상대를 끌어오거나 벽으로 날아감',wall:'눈앞에 상자 벽 3칸 (6초)',bounce:'아주 높이 점프 (밟기 2 대미지)',sneak:'2.5초 거의 투명, 빨라짐, 투사체가 통과',magnet:'아이템과 상대를 끌어옴',spin:'빙글 돌며 주변 2 대미지',roll:'1초 무적 구르기',bolt:'상대 자리에 늦게 떨어지는 벼락',wave:'주변 상대, 탄, 아이템을 밀어냄'};
-const SK2={dash:['어퍼컷','솟구치며 상대를 높이 띄움 (2)',4],blink:['잔상 폭탄','제자리에 1초 뒤 터지는 잔상 (2)',5],quake:['바위 던지기','무거운 바위를 포물선으로 (2)',4],leaf:['바람 칼날','멀리 날아가며 세게 밀침 (2)',3],bomb:['지뢰','밟으면 터지는 지뢰 설치 (2)',5],hook:['메치기','붙어 있는 상대를 뒤로 메침 (2)',4],wall:['상자 던지기','상자를 던져 크게 날림 (2)',3],bounce:['엉덩방아','공중에서 내려찍어 충격파 (2)',4],sneak:['표창 3연발','표창을 연달아 던짐',4.5],magnet:['반발','주변 탄을 모두 지우고 상대를 밀어냄',4.5],spin:['돌진 회전','앞으로 나아가며 회전 베기 (2)',4.5],roll:['튕겨 구르기','앞으로 튀어오르며 구름 (2)',4],bolt:['전기 구슬','맞으면 잠깐 못 움직임 (1)',4.5],wave:['부풀기','3.5초간 커지고 무거워짐, 닿으면 밀침',6]};
+const SK2={dash:['어퍼컷','솟구치며 상대를 높이 띄움 (2)',4],blink:['잔상 폭탄','제자리에 1초 뒤 터지는 잔상 (2)',5],quake:['바위 던지기','무거운 바위를 포물선으로 (2)',4],leaf:['바람 칼날','멀리 날아가며 세게 밀침 (2)',3],bomb:['지뢰','밟으면 터지는 지뢰 설치 (2)',5],hook:['메치기','앞의 상대를 휘감아 머리 위로 넘겨 메침 (2), 잠깐 기절',4],wall:['상자 던지기','상자를 던져 크게 날림 (2)',3],bounce:['엉덩방아','공중에서 내려찍어 충격파 (2)',4],sneak:['표창 3연발','표창을 연달아 던짐',4.5],magnet:['반발','주변 탄을 모두 지우고 상대를 밀어냄',4.5],spin:['돌진 회전','앞으로 나아가며 회전 베기 (2)',4.5],roll:['튕겨 구르기','앞으로 튀어오르며 구름 (2)',4],bolt:['전기 구슬','맞으면 잠깐 못 움직임 (1)',4.5],wave:['부풀기','3.5초간 커지고 무거워짐, 닿으면 밀침',6]};
 const ULT={dash:['연속 돌진','상대를 향해 3번 연달아 돌진 (1+1+2)'],blink:['번개 연타','상대 뒤로 3번 순간이동하며 타격'],quake:['대지진','땅에 선 상대에게 지진 3번'],leaf:['회오리','상대를 띄우는 회오리를 보냄'],bomb:['폭탄비','하늘에서 폭탄 8개가 떨어짐'],hook:['끌어 메치기','잡히면 끌려와서 3 대미지'],wall:['상자 감옥','상대를 상자로 가두고 폭파 (3)'],bounce:['슈퍼 바운스','5초간 착지할 때마다 충격파'],sneak:['암살','상대 뒤로 숨고, 다음 공격 +2'],magnet:['블랙홀','3초간 넓게 끌어당기다 크게 터짐 (2~4)'],spin:['거대 회오리','2.5초간 크게 돌며 연속 타격'],roll:['거대 굴렁쇠','커져서 3.5초간 구름 (3). 스킬 키로 멈춤'],bolt:['뇌우','상대 위로 벼락 6번'],wave:['초거대 충격파','넓은 충격파 3연발']};
 CHARS.forEach(c=>{c.d1=SK1[c.id];[c.sp2,c.d2,c.cd2]=SK2[c.id];[c.ult,c.du]=ULT[c.id];});
 
@@ -270,7 +270,7 @@ CHARS.push(
   {id:'bubble',name:'퐁퐁이',body:'n_bubble',hand:'Purple',baseSkin:3,color:'#3aa6dd',spd:1,jump:1.05,weight:.9,cd:4.5,sp:'비눗방울'}
 );
 Object.assign(SK1,{spike:'가시 3개를 부채꼴로 발사',star:'높이 솟구치며 위를 쳐올림 (2)',heart:'하트 1칸 회복 (13초마다)',hex:'1.6초 방어막, 탄 반사',cloud:'2.5초 두둥실 떠다니기 (이단 점프)',drop:'물살을 타고 미끄러지며 들이받기 (2)',clock:'가까운 상대의 시간을 3초 동안 느리게',zoom:'3초간 빨라지고 부딪힌 상대를 날림 (1)',twist:'서로 꼬이며 날아가는 나선탄 2발 (1)',bubble:'맞은 상대를 방울에 가둬 띄움. 1초 뒤 펑 (1)',fire:'불꽃을 쏨 (1)',ice:'맞으면 0.7초 얼어붙음 (1)',pen:'발 밑이나 앞쪽 위에 발판 3칸을 그림 (5초)',clone:'6초 동안 내 공격을 따라 하는 분신을 세움',rock:'살짝 떠오르며 2.8초간 단단해짐. 넉백 거의 없음, 대미지 -1'});
-Object.assign(SK2,{spike:['가시 덫','밟으면 터지는 덫 설치 (2)',5],star:['섬광','주변 상대를 1초 동안 멈춤',6],heart:['하트 화살','맞으면 잠깐 못 움직임 (1)',6.5],hex:['육각 벽','눈앞에 상자 벽을 세움',5],cloud:['비구름','상대 위로 작은 벼락 2번 (1)',5],drop:['물대포','멀리 밀어내는 물줄기 (1)',3.5],clock:['되감기','2초 전에 있던 자리로 돌아감',6],zoom:['슝 돌파','앞으로 순식간에 지나가며 모두 2 대미지',3.5],twist:['꽈배기 채찍','휘감아서 앞의 상대를 끌어당김 (1)',4],bubble:['거품 방패','2초 동안 공격 한 번을 막아줌',5],fire:['화염 방사','앞으로 불을 뿜어 최대 2번 (1+1), 두 번째에 밀쳐냄',4.5],ice:['얼음 가시','바닥에서 얼음 가시가 줄지어 솟음 (2)',4.5],pen:['잉크 뿌리기','먹칠 +34, 잠깐 느려짐. 100이면 터짐 (3)',3],clone:['자리 바꾸기','분신과 자리를 바꿈. 분신이 없으면 상대와',5],rock:['바위 굴리기','큰 바위를 굴려 보냄. 벽에 한 번 튕김 (2)',4]});
+Object.assign(SK2,{spike:['가시 덫','밟으면 터지는 덫 설치 (2)',5],star:['섬광','주변 상대를 1초 동안 멈춤',6],heart:['하트 화살','맞으면 잠깐 못 움직임 (1)',6.5],hex:['육각 벽','눈앞에 상자 벽을 세움',5],cloud:['비구름','상대 위로 작은 벼락 2번 (1)',5],drop:['물대포','멀리 밀어내는 물줄기 (1)',3.5],clock:['되감기','2초 전에 있던 자리로 돌아감',6],zoom:['슝 돌파','앞으로 순식간에 지나가며 모두 2 대미지',3.5],twist:['꽈배기 채찍','휘감아서 앞의 상대를 끌어당기고 잠깐 묶음 (1)',3.5],bubble:['거품 방패','2초 동안 공격 한 번을 막아줌',5],fire:['화염 방사','앞으로 불을 뿜어 최대 2번 (1+1), 두 번째에 밀쳐냄',4.5],ice:['얼음 가시','바닥에서 얼음 가시가 줄지어 솟음 (2)',4.5],pen:['잉크 뿌리기','먹칠 +34, 잠깐 느려짐. 100이면 터짐 (3)',3],clone:['자리 바꾸기','분신과 자리를 바꿈. 분신이 없으면 상대와',5],rock:['바위 굴리기','큰 바위를 굴려 보냄. 벽에 한 번 튕김 (2)',4]});
 Object.assign(ULT,{spike:['별똥별','하늘에서 가시 10개가 쏟아짐'],star:['유성우','터지는 별 6개가 떨어짐'],heart:['사랑의 힘','하트 1칸 회복, 방패, 1초 보호막'],hex:['요새','3.5초 방어막 + 5초간 공격 강화'],cloud:['폭풍','양쪽으로 회오리 2개'],drop:['해일','큰 파도가 상대를 쓸어감 (2)'],clock:['시간 정지','상대를 1.8초 동안 완전히 멈춤'],zoom:['음속 돌파','4초간 초고속, 닿을 때마다 2 대미지'],twist:['나선 폭풍','2.5초 동안 빙글빙글 도는 나선 탄막 (1)'],bubble:['방울 태풍','2.8초 동안 거센 바람이 방울을 싣고 불어옴. 갇히면 멀리 날아감 (1)'],fire:['대폭발','잠깐 모은 뒤 주변을 크게 터뜨림 (3)'],ice:['눈보라','모든 상대 3초 느려짐 (1)'],pen:['먹칠','낙서로 덮어 먹칠 +70, 무기, 방패, 버프를 지움'],clone:['분신 습격','분신 셋이 차례로 덤벼들고 마지막에 크게 날림 (2)'],rock:['대지 분쇄','내려찍기: 가까우면 3, 멀면 2. 바위가 쏟아짐']});
 CHARS.forEach(c=>{c.d1=SK1[c.id];[c.sp2,c.d2,c.cd2]=SK2[c.id];[c.ult,c.du]=ULT[c.id];});
 const SKINS=[null,['파랑','#3b86e8'],['남색','#4e5fb0'],['하늘','#22c3d6'],['청록','#1fa898'],['민트','#6fd6b0'],['연두','#9bcb3a'],['주황','#f39a2e'],['살구','#f2a98a'],['분홍','#ee6aae'],['자주','#b85cc8'],['갈색','#b07a55'],['회색','#8e949e']];
@@ -1057,7 +1057,7 @@ class Player{
       for(let k=0;k<14;k++){const a=k/14*6.28;parts.push({k:'dot',c:'#8fa9ff',x:tg.cx+Math.cos(a)*60,y:tg.cy+Math.sin(a)*60,vx:-Math.cos(a)*90,vy:-Math.sin(a)*90,g:0,r:4,life:.6,max:.6});}
     }
     if(id==='hook'){
-      this.hookOut=true;shots.push({type:'hook',x:this.cx+this.face*30,y:this.cy-6,vx:this.face*1450,vy:0,g:0,r:16,owner:this,life:.34});sfx('throw',.6,1.3);
+      this.hookOut=true;shots.push({type:'hook',x:this.cx+this.face*30,y:this.cy-6,vx:this.face*1450,vy:0,g:0,r:16,owner:this,life:.4});sfx('throw',.6,1.3);
     }
   }
   skill2(foe){
@@ -1070,7 +1070,12 @@ class Player{
     if(id==='bomb'){S({type:'mine',prox:true,x:this.cx,y:this.y+this.h-14,fuse:8,armT:0,g:1500,life:9});sfx('place',.5);}
     if(id==='hook'){
       this.atk=this.atkDur=.25;this.atkType='punch';this.noMelee=true;
-      let got=false;for(const g of foesOf(this))if(Math.abs(g.cx-this.cx)<84&&Math.abs(g.cy-this.cy)<64){hit(g,2,-f*900,-680,this.cx+f*99,true);got=true;}
+      zones.push({type:'whip',x:this.cx,y:this.cy,f,t:.25,max:.25,owner:this,L:150,c:this.color});
+      let got=false;for(const g of foesOf(this))if(!g.dead&&overlap(f>0?this.cx:this.cx-150,this.cy-48,150,96,g.x,g.y,g.w,g.h)){
+        const nx=this.cx-f*44-g.w/2,ny=Math.min(g.y,this.y+this.h-g.h);fx('puff',g.cx,g.cy);
+        if(boxFree(nx,ny,g.w,g.h)){g.x=nx;g.y=ny;}
+        for(let k=0;k<8;k++)parts.push({k:'dot',c:this.color,x:this.cx+f*(40-k*10),y:this.y-20-Math.sin(k/7*Math.PI)*40,vx:0,vy:0,g:0,r:4,life:.3,max:.3});
+        if(hit(g,2,-f*780,-720,this.cx+f*99,true)){g.stun=Math.max(g.stun,.45);shake(.25,10);}got=true;}
       if(got)sfx('grab',.8);else sfx('swing',.4,.8);
     }
     if(id==='wall'){S({type:'crate',vx:f*660,vy:-420,g:1500,r:20});sfx('throw',.6,.7);}
@@ -1095,7 +1100,7 @@ class Player{
         for(const g2 of foesOf(this))if(!hitSet.has(g2)&&Math.abs(g2.cx-x)<40&&g2.y+g2.h>gy-100&&g2.y<gy){hitSet.add(g2);if(hit(g2,2,f*200,-950,x)){g2.stun=Math.max(g2.stun,.6);g2.iceT=.6;}}});}
     if(id==='bubble'){this.bshT=2;sfx('magic',.6,1.2);}
     if(id==='fire'){zones.push({type:'flame',owner:this,t:.9,max:.9,tick:0,hits:new Map()});sfx('gust',.7,.6);}
-    if(id==='twist'){zones.push({type:'whip',x:this.cx,y:this.cy,f,t:.3,max:.3,owner:this});for(const g of foesOf(this))if(overlap(f>0?this.cx:this.cx-170,this.cy-40,170,80,g.x,g.y,g.w,g.h)){hit(g,1,-f*560,-260,this.cx+f*200);}sfx('whirl',.7,1.2);}
+    if(id==='twist'){zones.push({type:'whip',x:this.cx,y:this.cy,f,t:.3,max:.3,owner:this,L:220});for(const g of foesOf(this))if(overlap(f>0?this.cx:this.cx-220,this.cy-50,220,100,g.x,g.y,g.w,g.h)){if(hit(g,1,-f*620,-260,this.cx+f*200)){g.stun=Math.max(g.stun,.4);}}sfx('whirl',.7,1.2);}
     if(id==='glue'){S({type:'glueball',vx:f*700,vy:-160,g:800,r:13,life:2});sfx('throw',.5,.7);}
     if(id==='gear'){const mine=turrets.filter(q=>q.owner===this);if(mine.length){for(const q of mine){q.burst=3;q.bt=0;}sfx('warn',.5,1.6);}else{S({type:'cog',vx:f*700,r:12,life:1.6});sfx('throw',.5,1.3);}}
     if(id==='pen'){S({type:'ink',vx:f*720,vy:-220,g:900,r:14,life:2});sfx('throw',.5,.8);}
@@ -1483,10 +1488,10 @@ function cpuDecide(p,L,ai){
     const near=(a,b,h=70)=>fadx>=a&&fadx<=b&&fady<h,above=foe.cy<p.cy-80,id=p.ch.id;
     if(p.enemy){if(p.ch.cd<50&&p.spCd<=0&&d<440&&R()<L.skill)w.sp=true;}
     else{
-      const S1={bubble:()=>near(60,420,70),fire:()=>near(80,620,70),ice:()=>near(80,600,70),twist:()=>near(100,600,70),glue:()=>near(80,300,70)&&foe.ground,gear:()=>p.ground&&d<650&&turrets.filter(q=>q.owner===p).length<2,pen:()=>false,clone:()=>d<320,zoom:()=>d<520,rock:()=>(foe.atk>0&&d<130)||shots.some(q=>isFoe(p,q.owner)&&Math.hypot(q.x-p.cx,q.y-p.cy)<220),clock:()=>d<480,dash:()=>near(70,250,50)&&safe(5),blink:()=>(p.hp<=2&&d<120)||(near(180,300,60)&&safe(5)),quake:()=>fadx<210&&foe.ground,leaf:()=>foe.atk>0&&d<90,bomb:()=>near(180,460,140),hook:()=>near(200,480,50),
+      const S1={bubble:()=>near(60,420,70),fire:()=>near(80,620,70),ice:()=>near(80,600,70),twist:()=>near(100,600,70),glue:()=>near(80,300,70)&&foe.ground,gear:()=>p.ground&&d<650&&turrets.filter(q=>q.owner===p).length<2,pen:()=>false,clone:()=>d<320,zoom:()=>d<520,rock:()=>(foe.atk>0&&d<130)||shots.some(q=>isFoe(p,q.owner)&&Math.hypot(q.x-p.cx,q.y-p.cy)<220),clock:()=>d<480,dash:()=>near(70,250,50)&&safe(5),blink:()=>(p.hp<=2&&d<120)||(near(180,300,60)&&safe(5)),quake:()=>fadx<210&&foe.ground,leaf:()=>foe.atk>0&&d<90,bomb:()=>near(180,460,140),hook:()=>near(200,560,50),
         wall:()=>(foe.weapon&&WEAP[foe.weapon].kind==='ranged'&&near(150,600,80)),bounce:()=>above&&fadx<200,sneak:()=>d<320,magnet:()=>(items.length&&!p.weapon)||near(150,380,120),spin:()=>d<90,
         roll:()=>near(90,380,50)&&safe(8),bolt:()=>d>220,wave:()=>d<150,spike:()=>near(140,440,120),star:()=>above&&fadx<130,heart:()=>p.hp<=3,hex:()=>foe.atk>0&&d<100,cloud:()=>above&&fadx<200,drop:()=>near(70,320,50)&&safe(7)};
-      const S2={bubble:()=>(foe.atk>0&&d<120)||shots.some(q=>isFoe(p,q.owner)&&Math.hypot(q.x-p.cx,q.y-p.cy)<200),fire:()=>near(30,200,60),ice:()=>near(50,360,70)&&foe.ground,twist:()=>near(60,170,70),glue:()=>near(80,550,80),gear:()=>(turrets.some(q=>q.owner===p)&&d<650)||near(80,500,60),pen:()=>near(80,520,90),clone:()=>(p.hp<=2&&d<130)||(clones.some(q=>q.owner===p)&&d<90),zoom:()=>near(60,240,50)&&safe(5),rock:()=>near(150,620,90)&&p.ground,clock:()=>p.hp<=2&&d<130,dash:()=>near(0,90,90)&&foe.cy<=p.cy+20,blink:()=>d<110,quake:()=>near(150,420,120),leaf:()=>near(100,520,60),bomb:()=>d<200&&p.ground,hook:()=>fadx<80&&fady<64,wall:()=>near(150,420,90),
+      const S2={bubble:()=>(foe.atk>0&&d<120)||shots.some(q=>isFoe(p,q.owner)&&Math.hypot(q.x-p.cx,q.y-p.cy)<200),fire:()=>near(30,200,60),ice:()=>near(50,360,70)&&foe.ground,twist:()=>near(60,215,80),glue:()=>near(80,550,80),gear:()=>(turrets.some(q=>q.owner===p)&&d<650)||near(80,500,60),pen:()=>near(80,520,90),clone:()=>(p.hp<=2&&d<130)||(clones.some(q=>q.owner===p)&&d<90),zoom:()=>near(60,240,50)&&safe(5),rock:()=>near(150,620,90)&&p.ground,clock:()=>p.hp<=2&&d<130,dash:()=>near(0,90,90)&&foe.cy<=p.cy+20,blink:()=>d<110,quake:()=>near(150,420,120),leaf:()=>near(100,520,60),bomb:()=>d<200&&p.ground,hook:()=>fadx<145&&fady<64,wall:()=>near(150,420,90),
         bounce:()=>!p.ground&&foe.cy>p.cy&&fadx<120,sneak:()=>near(80,520,60),magnet:()=>d<160,spin:()=>near(60,300,60)&&safe(6),roll:()=>near(100,340,90)&&safe(6),bolt:()=>near(80,520,80),wave:()=>d<200,
         spike:()=>d<260&&p.ground,star:()=>d<200,heart:()=>near(80,520,60),hex:()=>foe.weapon&&WEAP[foe.weapon].kind==='ranged'&&near(150,500,80),cloud:()=>d>160,drop:()=>near(60,520,60)};
       const U={bubble:()=>Math.sign(foe.cx-p.cx)===p.face,fire:()=>d<200,ice:()=>d<900,twist:()=>d<420,glue:()=>d<500&&foe.ground,gear:()=>p.ground&&d<750,pen:()=>d<520,clone:()=>d<420,zoom:()=>d<500,rock:()=>d<340&&foe.ground,clock:()=>d<420,roll:()=>near(100,600,60)&&safe(10),blink:()=>d<400,heart:()=>p.hp<=3,hex:()=>d<160,magnet:()=>d<380,quake:()=>foe.ground,dash:()=>d<300,sneak:()=>d<500,wave:()=>d<260,spin:()=>d<160,bounce:()=>d<300,drop:()=>near(0,500,80)};
@@ -2118,7 +2123,7 @@ function render(){
       for(let k=0;k<Math.round((x1-x0)/80);k++){const ph=(time*.9+k*.37)%1,bx=x0+30+((k*71)%Math.max(1,x1-x0-60)),br=2+ph*6;if(ph<.85){ctx.beginPath();ctx.arc(bx,gy-hs[k%hs.length]*.5,br,0,7);ctx.lineWidth=2;ctx.strokeStyle='#ffffff';ctx.stroke();}}
       ctx.restore();continue;}
     if(z.type==='whip'){const pr=1-z.t/z.max;ctx.save();ctx.translate(z.owner.cx,z.owner.cy);ctx.scale(z.f,1);ctx.lineCap='round';
-      const L=170*Math.min(1,pr*3);for(const [w,c] of [[12,INK],[7,'#ffffff'],[4,'#b07a55']]){ctx.beginPath();ctx.moveTo(10,0);for(let x=10;x<=L;x+=6)ctx.lineTo(x,Math.sin(x*.09-pr*20)*14*(1-pr*.5));ctx.lineWidth=w;ctx.strokeStyle=c;ctx.stroke();}
+      const L=(z.L||170)*Math.min(1,pr*3);for(const [w,c] of [[12,INK],[7,'#ffffff'],[4,z.c||'#b07a55']]){ctx.beginPath();ctx.moveTo(10,0);for(let x=10;x<=L;x+=6)ctx.lineTo(x,Math.sin(x*.09-pr*20)*14*(1-pr*.5));ctx.lineWidth=w;ctx.strokeStyle=c;ctx.stroke();}
       ctx.restore();continue;}
     if(z.type==='spiral')continue;
     if(z.type==='scrawl'){
