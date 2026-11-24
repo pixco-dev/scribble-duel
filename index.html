@@ -234,7 +234,7 @@ const CHARS=[
   {id:'dash',name:'돌격이',body:'character_squareRed',hand:'Red',color:'#fc5c65',spd:1,jump:1,weight:1,cd:3.5,sp:'돌진 펀치',desc:'앞으로 튀어나가며 2 대미지로 크게 날립니다.'},
   {id:'blink',name:'번쩍이',body:'character_squarePurple',hand:'Purple',color:'#9179ff',spd:1.12,jump:1,weight:.9,cd:3.2,sp:'순간이동',desc:'바라보는 쪽으로 순간이동하고 잠깐 무적이 됩니다.'},
   {id:'quake',name:'쿵쿵이',body:'character_roundYellow',hand:'Yellow',color:'#f2a600',spd:.88,jump:.97,weight:1.4,cd:4.5,sp:'지진 찍기',desc:'뛰어올라 내려찍고, 주변 상대를 띄워 올립니다.'},
-  {id:'leaf',name:'팔랑이',body:'character_squareGreen',hand:'Green',color:'#28c47a',spd:1.1,jump:1.06,weight:.9,cd:4,sp:'반사막',desc:'날아오는 탄을 되돌리고 공격을 막습니다. 이단 점프도 됩니다.',double:true},
+  {id:'leaf',name:'팔랑이',body:'character_squareGreen',hand:'Green',color:'#28c47a',spd:1.1,jump:1.06,weight:.9,cd:3.5,sp:'반사막',desc:'날아오는 탄을 되돌리고 공격을 막습니다. 이단 점프도 됩니다.',double:true},
   {id:'bomb',name:'펑펑이',body:'character_roundRed',hand:'Red',color:'#e8505b',spd:.96,jump:1,weight:1.12,cd:4,sp:'폭탄 던지기',desc:'포물선으로 날아가 터지는 항아리 폭탄을 던집니다.'},
   {id:'hook',name:'갈골이',body:'character_roundPurple',hand:'Purple',color:'#7f68f0',spd:1,jump:1,weight:1,cd:4.2,sp:'잡아끌기',desc:'손을 쏴서 상대를 끌어오고, 벽에 맞으면 내가 날아갑니다.'},
   {id:'wall',name:'벽돌이',body:'x_rect_green',hand:'Green',color:'#28c47a',spd:1.12,jump:1.05,weight:.95,cd:4,sp:'상자 벽',desc:'눈앞에 2칸짜리 상자 벽을 세웁니다. 총알도 막아요.'},
@@ -247,9 +247,9 @@ const CHARS=[
   {id:'wave',name:'빵빵이',body:'x_round_yellow',hand:'Yellow',color:'#e09a00',spd:.9,jump:.96,weight:1.4,cd:5,sp:'충격파',desc:'몸을 부풀려 주변의 상대와 탄, 아이템을 밀어냅니다.'}
 ];
 
-const SK1={dash:'앞으로 튀어나가며 2 대미지',blink:'앞으로 순간이동, 잠깐 무적',quake:'뛰어올라 내려찍어 주변을 띄움',leaf:'1.6초 탄 반사, 공격 막기 (이단 점프)',bomb:'포물선으로 날아가 터지는 폭탄',hook:'상대를 끌어오거나 벽으로 날아감',wall:'눈앞에 상자 벽 3칸 (6초)',bounce:'아주 높이 점프 (밟기 2 대미지)',sneak:'2.5초 거의 투명, 빨라짐, 투사체가 통과',magnet:'아이템과 상대를 끌어옴',spin:'빙글 돌며 주변 2 대미지',roll:'1초 무적 구르기',bolt:'상대 자리에 늦게 떨어지는 벼락',wave:'주변 상대, 탄, 아이템을 밀어냄'};
-const SK2={dash:['어퍼컷','솟구치며 상대를 높이 띄움 (2)',4],blink:['잔상 폭탄','제자리에 1초 뒤 터지는 잔상 (2)',5],quake:['바위 던지기','무거운 바위를 포물선으로 (2)',4],leaf:['바람 칼날','멀리 날아가며 세게 밀침 (2)',3],bomb:['지뢰','밟으면 터지는 지뢰 설치 (2)',5],hook:['메치기','앞의 상대를 휘감아 머리 위로 넘겨 메침 (2), 잠깐 기절',4],wall:['상자 던지기','상자를 던져 크게 날림 (2)',3],bounce:['엉덩방아','공중에서 내려찍어 충격파 (2)',4],sneak:['표창 3연발','표창을 연달아 던짐',4.5],magnet:['반발','주변 탄을 모두 지우고 상대를 밀어냄',4.5],spin:['돌진 회전','앞으로 나아가며 회전 베기 (2)',4.5],roll:['튕겨 구르기','앞으로 튀어오르며 구름 (2)',4],bolt:['전기 구슬','맞으면 잠깐 못 움직임 (1)',4.5],wave:['부풀기','3.5초간 커지고 무거워짐, 닿으면 밀침',6]};
-const ULT={dash:['연속 돌진','상대를 향해 3번 연달아 돌진 (1+1+2)'],blink:['번개 연타','상대 뒤로 3번 순간이동하며 타격'],quake:['대지진','땅에 선 상대에게 지진 3번'],leaf:['회오리','상대를 띄우는 회오리를 보냄'],bomb:['폭탄비','하늘에서 폭탄 8개가 떨어짐'],hook:['끌어 메치기','잡히면 끌려와서 3 대미지'],wall:['상자 감옥','상대를 상자로 가두고 폭파 (3)'],bounce:['슈퍼 바운스','5초간 착지할 때마다 충격파'],sneak:['암살','상대 뒤로 숨고, 다음 공격 +2'],magnet:['블랙홀','3초간 넓게 끌어당기다 크게 터짐 (2~4)'],spin:['거대 회오리','2.5초간 크게 돌며 연속 타격'],roll:['거대 굴렁쇠','커져서 3.5초간 구름 (3). 스킬 키로 멈춤'],bolt:['뇌우','상대 위로 벼락 6번'],wave:['초거대 충격파','넓은 충격파 3연발']};
+const SK1={dash:'앞으로 튀어나가며 2 대미지',blink:'앞으로 순간이동, 잠깐 무적',quake:'뛰어올라 내려찍어 주변을 띄움',leaf:'2초 탄 반사, 공격 막기 (이단 점프)',bomb:'포물선으로 날아가 터지는 폭탄',hook:'상대를 끌어오거나 벽으로 날아감',wall:'눈앞에 상자 벽 3칸 (6초)',bounce:'아주 높이 점프 (밟기 2 대미지)',sneak:'2.5초 거의 투명, 빨라짐, 투사체가 통과',magnet:'아이템과 상대를 끌어옴',spin:'빙글 돌며 주변 2 대미지',roll:'1초 무적 구르기',bolt:'상대 자리에 늦게 떨어지는 벼락',wave:'주변 상대, 탄, 아이템을 밀어냄'};
+const SK2={dash:['어퍼컷','솟구치며 상대를 높이 띄움 (2)',4],blink:['잔상 폭탄','제자리에 1초 뒤 터지는 잔상 (2)',5],quake:['바위 던지기','무거운 바위를 포물선으로 (2)',4],leaf:['바람 칼날','멀리 날아가며 세게 밀침 (2)',2.5],bomb:['지뢰','밟으면 터지는 지뢰 설치 (2)',5],hook:['메치기','앞의 상대를 휘감아 머리 위로 넘겨 메침 (2), 잠깐 기절',4],wall:['상자 던지기','상자를 던져 크게 날림 (2)',3],bounce:['엉덩방아','공중에서 내려찍어 충격파 (2)',4],sneak:['표창 3연발','표창을 연달아 던짐',4.5],magnet:['반발','주변 탄을 모두 지우고 상대를 밀어냄',4.5],spin:['돌진 회전','앞으로 나아가며 회전 베기 (2)',4.5],roll:['튕겨 구르기','앞으로 튀어오르며 구름 (2)',4],bolt:['전기 구슬','맞으면 잠깐 못 움직임 (1)',4.5],wave:['부풀기','3.5초간 커지고 무거워짐, 닿으면 밀침',6]};
+const ULT={dash:['연속 돌진','상대를 향해 3번 연달아 돌진 (1+1+2)'],blink:['번개 연타','상대 뒤로 3번 순간이동하며 타격'],quake:['대지진','땅에 선 상대에게 지진 3번'],leaf:['회오리','크고 빠른 회오리로 상대를 띄우며 연속 타격'],bomb:['폭탄비','하늘에서 폭탄 8개가 떨어짐'],hook:['끌어 메치기','잡히면 끌려와서 3 대미지'],wall:['상자 감옥','상대를 상자로 가두고 1.1초 뒤 폭파 (3). 빠져나가면 안 맞음'],bounce:['슈퍼 바운스','5초간 착지할 때마다 충격파'],sneak:['암살','상대 뒤로 숨고, 다음 공격 +2'],magnet:['블랙홀','3초간 넓게 끌어당기다 크게 터짐 (2~4)'],spin:['거대 회오리','2.5초간 크게 돌며 연속 타격'],roll:['거대 굴렁쇠','커져서 3.5초간 구름 (3). 스킬 키로 멈춤'],bolt:['뇌우','상대 위로 벼락 6번'],wave:['초거대 충격파','넓은 충격파 3연발']};
 CHARS.forEach(c=>{c.d1=SK1[c.id];[c.sp2,c.d2,c.cd2]=SK2[c.id];[c.ult,c.du]=ULT[c.id];});
 
 CHARS.push(
@@ -989,7 +989,7 @@ class Player{
       if(this.ground){this.vy=-760;this.ground=false;}
       this.slam=1;this.jumping=false;sfx('jump',.5,.7);
     }
-    if(id==='leaf'){this.barrierT=1.6;sfx('barrier',.7);}
+    if(id==='leaf'){this.barrierT=2;sfx('barrier',.7);}
     if(id==='bomb'){
       this.atk=this.atkDur=.25;this.atkType='punch';this.noMelee=true;
       shots.push({type:'pot',dmg:this.enemy?1:undefined,x:this.cx+this.face*26,y:this.cy-20,vx:this.face*600+this.vx*.3,vy:-620,g:1600,r:16,owner:this,life:1.7,spin:0});sfx('throw',.6);
@@ -1133,7 +1133,7 @@ class Player{
       shake(.35,14);sfx('quake',.9);
       for(let c=0;c<COLS;c++){for(let r=2;r<ROWS;r++)if(solid(c,r)&&!solid(c,r-1)){parts.push({k:'dot',c:'#ffffff',x:c*T+32,y:r*T-4,vx:(Math.random()-.5)*80,vy:-300-Math.random()*200,g:1300,r:6,life:.5,max:.5});break;}}
       if(!foe.dead&&foe.ground){foe.inv=0;hit(foe,1,Math.sign(foe.cx-this.cx||1)*200,-820,this.cx,true);}});}
-    if(id==='leaf'){zones.push({type:'tornado',x:this.cx+f*40,gy:this.y+this.h,vx:f*190,t:4,owner:this,tick:0});sfx('whirl',.8,.5);}
+    if(id==='leaf'){zones.push({type:'tornado',x:this.cx+f*40,gy:this.y+this.h,vx:f*230,t:4,owner:this,tick:0,w:76,tickT:.4});sfx('whirl',.8,.5);}
     if(id==='bomb'){for(let k=0;k<8;k++)later(.15+k*.22,()=>{if(foe.dead)return;const x=Math.max(40,Math.min(W-40,foe.cx+(Math.random()-.5)*360));shots.push({type:'pot',dmg:1,x,y:-30,vx:0,vy:150,g:1500,r:16,owner:this,life:3,spin:0});});sfx('warn',.7,.6);}
     if(id==='hook'){this.hookOut=true;shots.push({type:'hook',ult:true,x:this.cx+f*30,y:this.cy-6,vx:f*1800,vy:0,g:0,r:22,owner:this,life:.55});sfx('throw',.8);}
     if(id==='wall'&&!foe.dead){
@@ -1143,7 +1143,7 @@ class Player{
         if(players.some(p=>!p.dead&&overlap(p.x,p.y,p.w,p.h,c*T,r*T,T,T)))continue;
         level.grid[r][c]='X';tempBlocks.push({c,r,t:3.2,age:0});
       }
-      sfx('build',.8,.7);later(1.1,()=>{if(!foe.dead){foe.inv=0;explode(foe.cx,foe.cy,this,140,3);}});
+      sfx('build',.8,.7);{const bx=fc*T+32,by=fr*T;later(1.1,()=>{for(const g of foesOf(this))if(!g.dead&&Math.abs(g.cx-bx)<70&&Math.abs(g.cy-by)<110)g.inv=0;explode(bx,by,this,95,3);});}
     }
     if(id==='bounce'){this.bounceUltT=5;this.vy=-1300;this.ground=false;this.jumping=false;}
     if(id==='sneak'){
@@ -1973,7 +1973,7 @@ function world(rdt,inp){
       for(let k=0;k<26;k++)parts.push({k:'dot',c:k%3?'#5fb8ea':'#ffffff',x:z.x+dr*zk*60,y:z.gy-zk*(20+Math.random()*120),vx:-dr*(80+Math.random()*320),vy:-200-Math.random()*420,g:1300,r:4+Math.random()*6,life:.8,max:.8});}}
     z.t-=dt;z.x+=z.vx*dt;if(z.type==='wave'&&!z.crash&&Math.random()<.45){const dr=Math.sign(z.vx)||1,zk=(z.w||70)/70;parts.push({k:'dot',c:Math.random()<.55?'#ffffff':'#9fd8f5',x:z.x+dr*zk*(20+Math.random()*60),y:z.gy-zk*(120+Math.random()*45),vx:z.vx*(.5+Math.random()*.7),vy:-120-Math.random()*220,g:900,r:3+Math.random()*4,life:.55,max:.55});}if(z.x<40||z.x>W-40){if(z.type==='wave')z.t=0;else z.vx=-z.vx;}z.tick-=dt;let ticked=false;
     for(const foe of foesOf(z.owner))if(Math.abs(foe.cx-z.x)<(z.w||58)&&foe.y+foe.h>z.gy-240&&foe.y<z.gy+10){if(z.type==='wave'){foe.vx=z.vx*2.5;foe.vy=Math.min(foe.vy,-300);foe.stun=Math.max(foe.stun,.2);if(!z.hit.has(foe)){z.hit.add(foe);for(let k=0;k<12;k++)parts.push({k:'dot',c:k%2?'#5fb8ea':'#ffffff',x:foe.cx,y:foe.cy,vx:z.vx*(.4+Math.random()*.8),vy:-150-Math.random()*300,g:1200,r:4+Math.random()*4,life:.6,max:.6});sfx('splash',.7,1);foe.inv=0;hit(foe,2,z.vx*2.5,-480,z.x,true);}continue;}foe.vy=Math.min(foe.vy,-520);foe.vx=approach(foe.vx,z.vx,1500*dt);foe.ground=false;foe.jumping=false;if(z.tick<=0){ticked=true;foe.inv=0;hit(foe,1,Math.sign(z.vx)*160,-650,z.x,true);}}
-    if(ticked)z.tick=.5;
+    if(ticked)z.tick=z.tickT||.5;
     for(const it of items)if(Math.abs(it.x-z.x)<50&&it.y>z.gy-240){it.vy=-400;it.ground=false;}
   }
   zones=zones.filter(z=>z.t>0);
@@ -2174,7 +2174,7 @@ function render(){
       ctx.beginPath();ctx.moveTo(-6,-118+bob);ctx.quadraticCurveTo(20,-134+bob,48,-128+bob);ctx.stroke();
       for(const [fx2,fy2,fr] of [[2,-150,10],[30,-158,12],[58,-150,10],[76,-128,8],[90,0,9]])styled(()=>{ctx.beginPath();ctx.arc(fx2+Math.sin(time*11+fx2)*1.5,fy2+(fy2<-20?bob:0),fr,0,7);},'#ffffff',.55);
       ctx.restore();continue;}
-    for(let k=0;k<6;k++){const sz=36+k*15,y=z.gy-22-k*36;ctx.save();ctx.globalAlpha=.85;ctx.translate(z.x+Math.sin(time*7+k)*9,y);ctx.rotate(time*9+k);img('smoke',-sz/2,-sz/2,sz,sz);ctx.restore();}
+    for(let k=0;k<6;k++){const sz=(36+k*15)*(z.w||58)/58,y=z.gy-22-k*36;ctx.save();ctx.globalAlpha=.85;ctx.translate(z.x+Math.sin(time*7+k)*9,y);ctx.rotate(time*9+k);img('smoke',-sz/2,-sz/2,sz,sz);ctx.restore();}
   }
   if(level&&level.idx===3&&state!=='title'&&state!=='mode'&&state!=='controls'){
     for(const side of[0,1]){const x0=side?W-2*T:0;ctx.save();ctx.globalAlpha=.4;ctx.strokeStyle=INK;ctx.lineWidth=1.5;
